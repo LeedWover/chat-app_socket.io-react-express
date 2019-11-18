@@ -6,15 +6,15 @@ let socket;
 const SERVER_URL = "localhost:5000";
 
 const Chat = ({ location }) => {
-  const [name, setName] = useState("");
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
     const { name } = queryString.parse(location.search);
     socket = io(SERVER_URL);
-    setName(name);
-    socket.emit("join", { name, room: 'room' });
+    socket.emit("join", { name, room: 'room' }, (error) => {
+      console.log(error)
+    });
     
   }, [SERVER_URL, location.search]);
 

@@ -2,7 +2,6 @@ const users = [];
 
 const addUser = ({ id, name, room }) => {
   name = name.trim().toLowerCase();
-  room = 'room';
   const userIsAlreadyExist = users.find((user) => user.name === name);
   if(userIsAlreadyExist) return { error: 'Username is already taken' };
 

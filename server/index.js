@@ -17,7 +17,7 @@ io.on('connection', (socket) => {
 
   socket.on('sendMessage', (message, cb) => {
     const user = getUser(socket.id);
-    console.log(user)
+    console.log('user', user)
     io.to(user.room).emit('sendMessage', { user, text: message });
     cb();
   });

@@ -19,7 +19,7 @@ const Chat = ({ location }) => {
   }, [SERVER_URL, location.search]);
 
   useEffect(() => {
-    socket.on("sendMessage", message => {
+    socket.on("message", message => {
       console.log('messs',message)
       setMessages([...messages, message]);
     });
@@ -28,10 +28,10 @@ const Chat = ({ location }) => {
   const sendMessage = (event) => {
     event.preventDefault();
     if(message) {
-      socket.emit('message', message, () => setMessage(''));
+      socket.emit('sendMessage', message, () => setMessage(''));
     }
   }
-  console.log(messages)
+
   return (
     <div>
       <div>

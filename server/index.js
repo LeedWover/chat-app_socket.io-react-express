@@ -10,12 +10,12 @@ io.on('connection', (socket) => {
   socket.on('join', ({ name, room }) => {
     const user = addUser({ id: socket.id, name, room });
     console.log(user)
-    socket.emit('sendMessage', { user: 'Admin', text: `Welcome in the chat`});
-    socket.broadcast.to(room).emit('sendMessage', { user: user.name, text: `${name} has joined.`});
+    socket.emit('message', { user: 'Admin', text: `Welcome in the chat`});
+    socket.broadcast.to(room).emit('message', { user: user.name, text: `${name} has joined.`});
     socket.join(room);
   });
 
-  socket.on('message', (message, cb) => {
+  socket.on('sendMessage', (message, cb) => {
     const user = getUser(socket.id);
     io.to(user.room).emit('message', { user, text: message });
     cb();

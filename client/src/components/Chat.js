@@ -42,7 +42,7 @@ const Chat = ({ location }) => {
         />
       </div>
       <div>{message}</div>
-      <div>{messages.map(message => message.text)}</div>
+      <div>{messages.map(message => <div>{message.text}</div>)}</div>
     </div>
   );
 };

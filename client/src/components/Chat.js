@@ -15,15 +15,12 @@ const Chat = ({ location }) => {
     socket = io(SERVER_URL);
     setName(name);
     socket.emit("join", { name, room: 'room' });
-    return () => {
-      socket.emit("disconnect");
-      socket.off();
-    };
+    
   }, [SERVER_URL, location.search]);
 
   useEffect(() => {
     socket.on("sendMessage", message => {
-      console.log(message)
+      console.log('messs',message)
       setMessages([...messages, message]);
     });
   }, [messages]);
@@ -31,12 +28,10 @@ const Chat = ({ location }) => {
   const sendMessage = (event) => {
     event.preventDefault();
     if(message) {
-      socket.emit('sendMessage', message, () => setMessage(''));
+      socket.emit('message', message, () => setMessage(''));
     }
   }
-
   console.log(messages)
-
   return (
     <div>
       <div>

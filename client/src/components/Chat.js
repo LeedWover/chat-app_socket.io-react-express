@@ -8,11 +8,13 @@ const SERVER_URL = "localhost:5000";
 
 const Chat = ({ location }) => {
   const history = useHistory();
+  const [name, setName] = useState("");
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
     const { name } = queryString.parse(location.search);
+    setName(name);
     socket = io(SERVER_URL);
     socket.emit("join", { name, room: 'room' }, (error) => {
       console.log(error)
@@ -43,7 +45,7 @@ const Chat = ({ location }) => {
   return (
     <div>
       <div>
-        <span>Name</span>
+        <span>{name}</span>
         <a href="/">Disconnect</a>
       </div>
       <div>
@@ -54,7 +56,7 @@ const Chat = ({ location }) => {
         />
       </div>
       <div>{message}</div>
-      <div>{messages.map((message, i) => <div key={i}>{message.text}</div>)}</div>
+      <div>{messages.map((message, i) => <div key={i}>{message.user.name} - {message.text}</div>)}</div>
     </div>
   );
 };

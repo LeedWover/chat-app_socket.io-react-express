@@ -11,7 +11,7 @@ io.on('connection', (socket) => {
     const { error, user } = addUser({ id: socket.id, name, room });
     if(error) return cb(error);
   
-    socket.emit('message', { user: 'Admin', text: `Welcome in the chat`});
+    socket.emit('message', { user: { name: 'Admin' }, text: `Welcome in the chat`});
     socket.broadcast.to(room).emit('message', { user: user.name, text: `${name} has joined.`});
     socket.join(room);
   });

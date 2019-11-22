@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from 'react-router-dom';
 import queryString from "query-string";
 import io from "socket.io-client";
 
@@ -6,6 +7,7 @@ let socket;
 const SERVER_URL = "localhost:5000";
 
 const Chat = ({ location }) => {
+  const history = useHistory();
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
 
@@ -14,6 +16,7 @@ const Chat = ({ location }) => {
     socket = io(SERVER_URL);
     socket.emit("join", { name, room: 'room' }, (error) => {
       console.log(error)
+      return history.push(`/`);
     });
     
   }, [SERVER_URL, location.search]);
@@ -34,6 +37,10 @@ const Chat = ({ location }) => {
 
   return (
     <div>
+      <div>
+        <span>Name</span>
+        <button onClick={() => history.push(`/`)}>Disconnect</button>
+      </div>
       <div>
         <input
           value={message}

@@ -26,6 +26,10 @@ const Chat = ({ location }) => {
       console.log('messs',message)
       setMessages([...messages, message]);
     });
+    return () => {
+      socket.emit('disconnect');
+      socket.off();
+    }
   }, [messages]);
 
   const sendMessage = (event) => {
@@ -35,11 +39,12 @@ const Chat = ({ location }) => {
     }
   }
 
+
   return (
     <div>
       <div>
         <span>Name</span>
-        <button onClick={() => history.push(`/`)}>Disconnect</button>
+        <a href="/">Disconnect</a>
       </div>
       <div>
         <input

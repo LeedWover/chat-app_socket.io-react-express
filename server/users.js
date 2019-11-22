@@ -21,8 +21,13 @@ const getUser = (id) => {
   return users.find((user) => user.id === id);
 }
 
+const getUsers = (id) => {
+  return users;
+}
+
 module.exports = {
   addUser,
   removeUser,
-  getUser
+  getUser,
+  getUsers
 }

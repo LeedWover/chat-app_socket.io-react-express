@@ -29,7 +29,7 @@ io.on("connection", socket => {
 
   socket.on("disconnect", () => {
     const user = removeUser(socket.id);
-    if(user) io.to(user.room).emit("message", { user: "Admin", text: `${user.name} has left.` });
+    if(user) socket.broadcast.to(user.room).emit("message", { user: user.name, text: `${user.name} has left.` });
     console.log('usser',user)
     console.log("user disconnected");
   });

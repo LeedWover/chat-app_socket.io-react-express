@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from 'react-router-dom';
-import { Avatar } from '@material-ui/core';
+import { Container, Input } from '@material-ui/core';
 import queryString from "query-string";
 import io from "socket.io-client";
 
@@ -44,13 +44,15 @@ const Chat = ({ location }) => {
 
 
   return (
-    <div>
-      <div>
-        <span>{name}</span>
-        <a href="/">Disconnect</a>
+    <Container>
+      <div style={{margin: '2em', textAlign: 'center'}}>
+        <span style={{fontSize: '2em', padding: '1em'}}>{name}</span>
+        <a href="/" style={{textDecoration: 'none', fontSize: '2em'}}>Disconnect</a>
       </div>
       <div>
-        <input
+        <Input
+          fullWidth={true}
+          placeholder="Type something..."
           value={message}
           onChange={event => setMessage(event.target.value)}
           onKeyPress={event => event.key === 'Enter' ? sendMessage(event) : null}
@@ -58,7 +60,7 @@ const Chat = ({ location }) => {
       </div>
       <div>{message}</div>
       <div>{messages.map((message, i) => <div key={i} style={{ margin: '20px 0' }}><span style={{background: 'blue', color: '#fff', padding: '5px 8px', borderRadius: '10px'}} bgcolor="primary.main">{message.user.name}</span> {message.text}</div>)}</div>
-    </div>
+    </Container>
   );
 };
 

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { Container, Input, Button } from '@material-ui/core';
 
 const Join = () => {
   const history = useHistory();
@@ -13,19 +14,19 @@ const Join = () => {
 
   return (
     <div>
-      <div>
-        <h1>Chat app</h1>
+      <Container align="center">
+        <h1>Welcome in the chat!</h1>
         <div>
           <form onSubmit={handleSubmit}>
-            <input
+            <Input
               type="text"
               placeholder="Enter a name"
               onChange={(event) => setName(event.target.value)}
             />
-            <button type="submit">Sign In</button>
+            <Button type="submit">Sign In</Button>
           </form>
         </div>
-      </div>
+      </Container>
     </div>
   );
 };

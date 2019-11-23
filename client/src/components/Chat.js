@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from 'react-router-dom';
+import { Avatar } from '@material-ui/core';
 import queryString from "query-string";
 import io from "socket.io-client";
 
@@ -56,7 +57,7 @@ const Chat = ({ location }) => {
         />
       </div>
       <div>{message}</div>
-      <div>{messages.map((message, i) => <div key={i}>{message.user.name} {message.text}</div>)}</div>
+      <div>{messages.map((message, i) => <div key={i} style={{ margin: '20px 0' }}><span style={{background: 'blue', color: '#fff', padding: '5px 8px', borderRadius: '10px'}} bgcolor="primary.main">{message.user.name}</span> {message.text}</div>)}</div>
     </div>
   );
 };

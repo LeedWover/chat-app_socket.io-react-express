@@ -22,7 +22,7 @@ const Chat = ({ location }) => {
       setError(error)
       return history.push(`/`);
     });
-  }, [SERVER_URL, location.search]);
+  }, [location.search]);
 
   useEffect(() => {
     socket.on("message", message => {
@@ -60,7 +60,6 @@ const Chat = ({ location }) => {
           }
         />
       </div>
-      <div>{message}</div>
       <div>
         {messages.map((message, i) => {
           const color = name === message.user.name ? 'blue' : 'grey';

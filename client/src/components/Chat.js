@@ -12,20 +12,20 @@ const Chat = ({ location }) => {
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
-  console.log(messages);
+  const [error, setError] = useState('');
+
   useEffect(() => {
     const { name } = queryString.parse(location.search);
     setName(name);
     socket = io(SERVER_URL);
     socket.emit("join", { name, room: "room" }, error => {
-      console.log(error);
+      setError(error)
       return history.push(`/`);
     });
   }, [SERVER_URL, location.search]);
 
   useEffect(() => {
     socket.on("message", message => {
-      console.log("messs", message);
       setMessages([...messages, message]);
     });
     return () => {
@@ -81,6 +81,7 @@ const Chat = ({ location }) => {
           </div>
         )})}
       </div>
+      {error ? alert(error) : null}
     </Container>
   );
 };

@@ -5,7 +5,7 @@ import queryString from 'query-string';
 import io from 'socket.io-client';
 
 let socket;
-const SERVER_URL = 'localhost:5000';
+const SERVER_URL = process.env.REACT_APP_DEV_SERVER_URL;
 
 const Chat = ({ location }) => {
   const history = useHistory();

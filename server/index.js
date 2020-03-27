@@ -1,6 +1,9 @@
 const app = require("express")();
+var cors = require('cors');
 const server = require("http").createServer(app);
 const io = require("socket.io")(server);
+
+app.use(cors());
 
 const { addUser, removeUser, getUser, getUsers } = require("./users");
 

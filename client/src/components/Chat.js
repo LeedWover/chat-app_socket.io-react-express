@@ -46,13 +46,13 @@ const Chat = ({ location }) => {
       <div style={{ margin: '2em', textAlign: 'center' }}>
         <span style={{ fontSize: '2em', padding: '1em' }}>{name}</span>
         <a href="/" style={{ textDecoration: 'none', fontSize: '2em' }}>
-          Disconnect
+          Kilépés
         </a>
       </div>
       <div>
         <Input
           fullWidth={true}
-          placeholder="Type something..."
+          placeholder="Írj valamit..."
           value={message}
           onChange={event => setMessage(event.target.value)}
           onKeyPress={event =>
@@ -62,8 +62,12 @@ const Chat = ({ location }) => {
       </div>
       <div>
         {messages.map((message, i) => {
-          const color = name === message.user.name ? 'blue' : 'grey';
+        
+          let color = name === message.user.name ? '#0059ac' : '#6b6b6b';
           const align = name === message.user.name ? 'left' : 'right';
+          if(message.user.name.toLowerCase() === 'admin') {
+            color = '#c00000'
+          }
           return (
             <div key={i} style={{ margin: '20px 0', textAlign: align }}>
               {name === message.user.name ? (

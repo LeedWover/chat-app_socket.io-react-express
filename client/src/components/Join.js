@@ -8,22 +8,22 @@ const Join = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!name) return alert('Please enter a name');
+    if (!name) return alert('Nem írtál be nevet');
     return history.push(`/chat?name=${name}`);
   };
 
   return (
     <div>
       <Container align="center">
-        <h1>Welcome in the chat!</h1>
+        <h1>Üdv a chatben!</h1>
         <div>
           <form onSubmit={handleSubmit}>
             <Input
               type="text"
-              placeholder="Enter a name"
+              placeholder="Írj be egy nevet..."
               onChange={(event) => setName(event.target.value)}
             />
-            <Button type="submit">Sign In</Button>
+            <Button type="submit">Belépés</Button>
           </form>
         </div>
       </Container>

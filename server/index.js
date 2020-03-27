@@ -17,7 +17,7 @@ io.on("connection", socket => {
     });
     socket.broadcast
       .to(room)
-      .emit("message", { user: { name: 'Admin' }, text: `${name} has joined.` });
+      .emit("message", { user: { name: 'Admin', room: 'room' }, text: `${name} has joined.` });
     socket.join(room);
   });
 

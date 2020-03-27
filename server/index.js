@@ -13,11 +13,11 @@ io.on("connection", socket => {
 
     socket.emit("message", {
       user: { name: "Admin", room: "room" },
-      text: `Welcome in the chat`
+      text: `Welcome in the chat!`
     });
     socket.broadcast
       .to(room)
-      .emit("message", { user: { name }, text: ` has joined.` });
+      .emit("message", { user: { name: 'Admin' }, text: `${name} has joined.` });
     socket.join(room);
   });
 

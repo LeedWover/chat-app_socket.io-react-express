@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Container, Input } from '@material-ui/core';
+import { Container, Input, Button } from '@material-ui/core';
 import queryString from 'query-string';
 import io from 'socket.io-client';
 
 let socket;
-const SERVER_URL = process.env.NODE_ENV === 'development' ? process.env.REACT_APP_DEV_SERVER_URL : process.env.REACT_APP_PROD_SERVER_URL;
+const SERVER_URL =
+  process.env.NODE_ENV === 'development'
+    ? process.env.REACT_APP_DEV_SERVER_URL
+    : process.env.REACT_APP_PROD_SERVER_URL;
 
 const Chat = ({ location }) => {
   const history = useHistory();
   const [name, setName] = useState('');
+  const [users, setUsers] = useState([]);
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const [error, setError] = useState('');
-
   useEffect(() => {
     const { name } = queryString.parse(location.search);
     setName(name);
@@ -27,11 +30,9 @@ const Chat = ({ location }) => {
   useEffect(() => {
     socket.on('message', message => {
       setMessages([...messages, message]);
+      const usersToSet = message.users;
+      setUsers(usersToSet);
     });
-    return () => {
-      socket.emit('disconnect');
-      socket.off();
-    };
   }, [messages]);
 
   const sendMessage = event => {
@@ -42,14 +43,36 @@ const Chat = ({ location }) => {
   };
 
   return (
-    <Container style={{ width: '60%', margin: 'auto' }}>
-      <div style={{ margin: '2em', textAlign: 'center' }}>
-        <span style={{ fontSize: '2em', padding: '1em' }}>{name}</span>
-        <a href="/" style={{ textDecoration: 'none', fontSize: '2em' }}>
+    <Container maxWidth="sm">
+      <div style={{ margin: '0.6em' }}>
+        <span style={{ fontSize: '2.4em' }}>{name}</span>
+        <a
+          href="/"
+          style={{ textDecoration: 'none', fontSize: '1.2em', float: 'right' }}
+        >
           Kilépés
         </a>
       </div>
       <div>
+        <div style={{margin: '20px'}}>
+         <span>Elérhető:</span>
+          {users
+            ? users.map((user, i) => (
+                <span
+                  key={i}
+                  style={{
+                    background: '#85be00',
+                    color: '#fff',
+                    padding: '5px 8px',
+                    margin: '3px 3px',
+                    borderRadius: '10px'
+                  }}
+                >
+                  {user.name}
+                </span>
+              ))
+            : null}
+        </div>
         <Input
           fullWidth={true}
           placeholder="Írj valamit..."
@@ -62,11 +85,10 @@ const Chat = ({ location }) => {
       </div>
       <div>
         {messages.map((message, i) => {
-        
           let color = name === message.user.name ? '#0059ac' : '#6b6b6b';
           const align = name === message.user.name ? 'left' : 'right';
-          if(message.user.name.toLowerCase() === 'admin') {
-            color = '#c00000'
+          if (message.user.name.toLowerCase() === 'admin') {
+            color = '#c00000';
           }
           return (
             <div key={i} style={{ margin: '20px 0', textAlign: align }}>
@@ -82,11 +104,11 @@ const Chat = ({ location }) => {
                   >
                     {message.user.name}
                   </span>{' '}
-                  {message.text}
+                  <span>{message.text}</span>
                 </>
               ) : (
                 <>
-                  {message.text}{' '}
+                  <span>{message.text}</span>{' '}
                   <span
                     style={{
                       background: color,

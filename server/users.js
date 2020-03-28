@@ -1,13 +1,12 @@
 const users = [];
 
 const addUser = ({ id, name, room }) => {
-  name = name.trim().toLowerCase();
+  name = name.trim();
   const userIsAlreadyExist = users.find((user) => user.name === name);
   if(userIsAlreadyExist) return { error: 'Username is already taken' };
 
   const user = { id, name, room };
   users.push(user);
-  console.log(users)
   return { user };
 }
 
@@ -23,7 +22,7 @@ const getUser = (id) => {
 }
 
 const getUsers = () => {
-  return users;
+  return {users};
 }
 
 module.exports = {

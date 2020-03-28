@@ -31,7 +31,7 @@ const Chat = ({ location }) => {
     socket.on('message', message => {
       setMessages([...messages, message]);
       const usersToSet = message.users;
-      setUsers(usersToSet);
+      if(message.users) setUsers(usersToSet);
     });
   }, [messages]);
 
@@ -64,7 +64,7 @@ const Chat = ({ location }) => {
                     background: '#85be00',
                     color: '#fff',
                     padding: '5px 8px',
-                    margin: '3px 3px',
+                    margin: '3px 0 3px 8px',
                     borderRadius: '10px'
                   }}
                 >

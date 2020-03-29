@@ -29,11 +29,11 @@ const Chat = ({ location }) => {
 
   useEffect(() => {
     socket.on('message', message => {
-      setMessages([...messages, message]);
+      setMessages(prevState => [...prevState, message]);
       const usersToSet = message.users;
       if(message.users) setUsers(usersToSet);
     });
-  }, [messages]);
+  }, []);
 
   const sendMessage = event => {
     event.preventDefault();
